@@ -1,0 +1,57 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=h1, initial-scale=1.0">
+    <title>Practice</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
+
+<body>
+    <h1 class="title" id="heading" onclick="titleClicked()">Sudoku  <i class="fa-solid fa-bell"></i></h1>
+
+    <div id="board">
+
+    </div>
+
+    <script>
+   
+        var url = "https://sugoku.herokuapp.com/board?difficulty=easy";
+
+        //chaining promises
+        fetch(url).then(res=>res.json()).then(data=>displayBoard(data.board));
+
+        function displayBoard(data){
+            var html = "";
+            for(i=0;i<data.length;i++){
+                html += "<div class='row'>";
+                for(j=0;j<data[i].length;j++)
+                {
+                    if(data[i][j]==0)
+                    html += "<input class='cell' type='number' value=''/>";
+                    else
+                    html += "<input class='cell' type='number' value='"+data[i][j]+"'/>";
+                }
+               
+                html += "</div>";
+            }
+            document.querySelector("#board").innerHTML = html;
+        }
+            
+
+
+    </script>
+
+    <style>
+       .row{
+        display: block;
+       }
+       .cell{
+        width: 30px;
+       }
+    </style>
+    
+</body>
+</html>
